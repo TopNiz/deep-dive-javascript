@@ -1,0 +1,214 @@
+html,
+body {
+  height: 100%;
+  width: 100%;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+main {
+  padding-right: 1rem
+}
+
+canvas {
+  border: 1px solid black;
+  width: 100%;
+  height: 100%;
+  max-height: 30rem;
+  ;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+thead {
+  background-color: grey;
+}
+
+tbody> :nth-child(2n) {
+  background-color: lightblue;
+}
+
+th,
+td {
+  padding: 1rem 0.5rem;
+  min-width: fit-content;
+  vertical-align: top;
+}
+
+th {
+  white-space: nowrap;
+}
+
+summary h2 {
+  display: inline-block;
+}
+
+label {
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+}
+
+fieldset {
+  width: 100%;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+fieldset legend {
+  font-weight: bold;
+}
+
+select,
+input {
+  width: 100%;
+  min-width: 12rem;
+  height: 2rem;
+  background-color: #f4f4f4;
+  border: 1px solid rgb(0, 0, 0, 0.2);
+  border-radius: 0;
+  padding: 0.5rem;
+  box-sizing: border-box;
+}
+
+td input {
+  width: 100%;
+  min-width: 5rem;
+}
+
+select {
+  width: 100%;
+  min-width: 12rem;
+}
+
+button {
+  padding: 0.5rem;
+  border: none;
+  border-radius: 0;
+  background-color: lightblue;
+  cursor: pointer;
+  min-width: 100px;
+  font-weight: bold;
+}
+
+.recherche {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+form fieldset {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+input[type="radio"],
+input[type="checkbox"] {
+  width: 1rem;
+  min-width: 0;
+  height: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.invalid {
+  border: 1px solid red;
+}
+
+.nombre fieldset {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+}
+
+.texte {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.texte label {
+  font-weight: normal;
+}
+
+.action {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+  justify-content: start;
+  align-items: center;
+  margin: 1rem 0;
+}
+
+.stats {
+  display: none;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: start;
+  font-weight: normal;
+  min-width: 10rem;
+  background-color: #f4f4f4;
+  border: 1px solid black;
+  padding: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+th:hover .stats {
+  display: flex;
+  position: absolute;
+}
+
+tbody>.selected {
+  background-color: lightgreen;
+}
+
+#recherche {
+  height: fit-content;
+}
+
+#recherche div {
+  display: flex;
+}
+
+#filtres {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: start;
+  gap: 0.5rem;
+}
+
+#filtres>div {
+  flex-grow: 1;
+}
+
+#btn-reinit {
+  background: none;
+  border: 1px solid black;
+}
+
+#donnees {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+#ajouter-modifier form {
+  display: none;
+}
+
+#tableau {
+  width: 100%;
+}
+
+#graphiques {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+  max-width: 60rem;
+}

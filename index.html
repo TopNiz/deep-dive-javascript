@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Manipulation des données</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+    <script src="./gerer.js"></script>
+    <script src="./data.js"></script>
+    <script src="./filtrer.js"></script>
+    <script src="./graphiques.js"></script>
+  </head>
+
+  <body onload="load_csv()">
+    <h1>Analyse des pourboires</h1>
+    <main>
+      <details id="recherche">
+        <summary><h2>Recherche :</h2></summary>
+        <section id="filtres">
+          <div class="nombre">
+            <fieldset>
+              <legend>Total ticket</legend>
+              <div class="recherche">
+                <label for="recherche_min_ticket">Min.</label>
+                <input
+                  type="number"
+                  id="recherche_min_ticket"
+                  placeholder="Minimum"
+                />
+              </div>
+              <div class="recherche">
+                <label for="recherche_max_ticket">Max.</label>
+                <input
+                  type="number"
+                  id="recherche_max_ticket"
+                  placeholder="Maximum"
+                />
+              </div>
+            </fieldset>
+          </div>
+          <div class="nombre">
+            <fieldset>
+              <legend>Pourboire</legend>
+              <div class="recherche">
+                <label for="recherche_min_pourboire">Min. Pourboire</label>
+                <input
+                  type="number"
+                  id="recherche_min_pourboire"
+                  placeholder="Minimum"
+                />
+              </div>
+              <div class="recherche">
+                <label for="recherche_max_pourboire">Max. Pourboire</label>
+                <input
+                  type="number"
+                  id="recherche_max_pourboire"
+                  placeholder="Maximum"
+                />
+              </div>
+            </fieldset>
+          </div>
+          <div class="recherche texte">
+            <fieldset>
+              <legend>Genre</legend>
+              <div>
+                <input
+                  type="checkbox"
+                  name="recherche_genre"
+                  id="recherche_genre_femme"
+                  checked
+                />
+                <label for="recherche_genre_femme">Femme</label>
+              </div>
+              <div>
+                <input
+                  type="checkbox"
+                  name="recherche_genre"
+                  id="recherche_genre_homme"
+                  checked
+                />
+                <label for="recherche_genre_homme">Homme</label>
+              </div>
+            </fieldset>
+            <fieldset>
+              <legend>Fumeur</legend>
+              <div>
+                <input
+                  type="checkbox"
+                  name="recherche_fumeur"
+                  id="recherche_fumeur_oui"
+                  checked
+                />
+                <label for="recherche_fumeur_oui">Oui</label>
+              </div>
+              <div>
+                <input
+                  type="checkbox"
+                  name="recherche_fumeur"
+                  id="recherche_fumeur_non"
+                  checked
+                />
+                <label for="recherche_fumeur_non">Non</label>
+              </div>
+            </fieldset>
+            <fieldset>
+              <legend>Service</legend>
+              <div>
+                <input
+                  type="checkbox"
+                  name="recherche_service"
+                  id="recherche_service_dejeuner"
+                  checked
+                />
+                <label for="recherche_service_dejeuner">Déjeuner</label>
+              </div>
+              <div>
+                <input
+                  type="checkbox"
+                  name="recherche_service"
+                  id="recherche_service_diner"
+                  checked
+                />
+                <label for="recherche_service_diner">Dîner</label>
+              </div>
+            </fieldset>
+          </div>
+          <div class="recherche texte">
+            <fieldset>
+              <legend>Jour semaine</legend>
+              <select id="recherche_jour">
+                <option value="Tous">Tous</option>
+                <option value="Dimanche">Dimanche</option>
+                <option value="Samedi">Samedi</option>
+                <option value="Jeudi">Jeudi</option>
+                <option value="Vendredi">Vendredi</option>
+              </select>
+            </fieldset>
+          </div>
+          <div class="nombre">
+            <fieldset>
+              <legend>Couverts</legend>
+              <div class="recherche">
+                <label for="recherche_min_couverts">Min. Nb. couverts</label>
+                <input
+                  type="number"
+                  id="recherche_min_couverts"
+                  placeholder="Minimum"
+                />
+              </div>
+              <div class="recherche">
+                <label for="recherche_max_couverts">Max. Nb. couverts</label>
+                <input
+                  type="number"
+                  id="recherche_max_couverts"
+                  placeholder="Maximum"
+                />
+              </div>
+            </fieldset>
+          </div>
+        </section>
+        <section class="action">
+          <button id="btn-filtrer" onclick="filtrer(aff)">Filtrer</button>
+          <button id="btn-reinit" onclick="reinitialiser()">
+            Réinitialiser
+          </button>
+        </section>
+      </details>
+      <section id="donnees">
+        <details id="tableau" open>
+          <summary><h2>Données :</h2></summary>
+          <p>Nombre de lignes: <span id="nb_lignes">--</span></p>
+          <section class="action">
+            <button id="btn-ajouter" onclick="ajouter()">Ajouter</button>
+            <button id="btn-modifier" onclick="modifier()">Modifier</button>
+            <button id="btn-supprimer" onclick="supprimer()">Supprimer</button>
+          </section>
+          <section id="ajouter-modifier">
+            <form>
+              <input type="hidden" id="index" />
+              <fieldset>
+                <legend>Ajout d'une ligne</legend>
+                <div class="saisie">
+                  <label for="ajout_ticket">Total ticket</label>
+                  <input
+                    type="number"
+                    id="ajout_ticket"
+                    placeholder="Total ticket"
+                    step="0.01"
+                    required
+                  />
+                </div>
+                <div class="saisie">
+                  <label for="ajout_pourboire">Pourboire</label>
+                  <input
+                    type="number"
+                    id="ajout_pourboire"
+                    placeholder="Pourboire"
+                    step="0.01"
+                    required
+                  />
+                </div>
+                <div class="saisie">
+                  <label for="ajout_couverts">Nb. couverts</label>
+                  <input
+                    type="number"
+                    id="ajout_couverts"
+                    placeholder="Nb. couverts"
+                    required
+                  />
+                </div>
+                <div class="saisie">
+                  <label for="ajout_jour">Jour semaine</label>
+                  <select id="ajout_jour">
+                    <option value="Dimanche">Dimanche</option>
+                    <option value="Samedi">Samedi</option>
+                    <option value="Jeudi">Jeudi</option>
+                    <option value="Vendredi">Vendredi</option>
+                  </select>
+                </div>
+                <div class="saisie">
+                  <label for="ajout_service">Service</label>
+                  <select id="ajout_service">
+                    <option value="Déjeuner">Déjeuner</option>
+                    <option value="Dîner">Dîner</option>
+                  </select>
+                </div>
+                <div class="saisie">
+                  <label for="ajout_fumeur">Fumeur</label>
+                  <select id="ajout_fumeur">
+                    <option value="Oui">Oui</option>
+                    <option value="Non">Non</option>
+                  </select>
+                </div>
+                <div class="saisie">
+                  <label for="ajout_genre">Genre</label>
+                  <select id="ajout_genre">
+                    <option value="Femme">Femme</option>
+                    <option value="Homme">Homme</option>
+                  </select>
+                </div>
+              </fieldset>
+              <div class="action">
+                <button
+                  id="btn-soumettre"
+                  type="button"
+                  onclick="soumettreLigne()"
+                >
+                  Soumettre
+                </button>
+                <button
+                  id="btn-annuler-ligne"
+                  type="button"
+                  onclick="annulerLigne()"
+                >
+                  Annuler
+                </button>
+                <button
+                  id="btn-reinit-ligne"
+                  type="button"
+                  onclick="reinitAjoutForm()"
+                >
+                  Ré-initialiser
+                </button>
+              </div>
+            </form>
+          </section>
+          <table id="data"></table>
+        </details>
+        <details id="graphiques">
+          <summary><h2>Graphiques :</h2></summary>
+          <canvas id="bars_ticket"></canvas>
+          <canvas id="bars_pourboire"></canvas>
+          <canvas id="bubble_pourboire_ticket_couvert"></canvas>
+        </details>
+      </section>
+    </main>
+  </body>
+</html>
